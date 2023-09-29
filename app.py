@@ -11,6 +11,12 @@ conn = psycopg2.connect(database="service_db",
 
 cursor = conn.cursor()
 
+@app.route('/')
+def index():
+    return redirect('/login')
+
+
+
 
 @app.route('/login/', methods=['POST', 'GET'])
 def login():

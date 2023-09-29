@@ -18,9 +18,12 @@ def index():
 
 @app.route('/login/', methods=['POST'])
 def login():
-    error = None
     username = request.form.get('username')
     password = request.form.get('password')
+    if (not login) or (not password):
+        return render_template('invalidlogin.html')
     cursor.execute("SELECT * FROM service.users WHERE login=%s AND password=%s", (str(username), str(password)))
     records = list(cursor.fetchall())
+    if not records:
+        return render_template('invalidlogin.html')
     return render_template('account.html', full_name=records[0][1], login=records[0][2], password=records[0][3])
